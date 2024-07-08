@@ -3,10 +3,10 @@ import { IsEmail, IsString, MinLength } from 'class-validator';
 
 export class LoginDto {
   @IsEmail()
-  email: string;
+  correo: string;
 
   @Transform(({ value }) => value.trim())
   @IsString()
   @MinLength(6)
-  password: string;
+  contraseña: string;
 }

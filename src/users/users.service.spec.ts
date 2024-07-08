@@ -42,9 +42,12 @@ describe('UsersService', () => {
       it('should create a new user with encoded password', async () =>{
   
         await service.create({
-          email: 'agudelo@gamil.com',
-          password: '123456',
-          name: 'Sebastian'
+          correo: 'agudelo@gamil.com',
+          contraseña: '123456',
+          nombre: 'Sebastian',
+          apellido: 'agudelo',
+          edad: 21,
+          telefono: '2145386174'
         })
 
         

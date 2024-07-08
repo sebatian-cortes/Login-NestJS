@@ -16,23 +16,23 @@ export class UsersService {
     return this.userRepository.save(createUserDto);
   }
 
-  findOneByEmail(email: string) {
-    return this.userRepository.findOneBy({ email });
+  findOneByEmail(correo: string) {
+    return this.userRepository.findOneBy({ correo });
   }
 
   findAll() {
     return `This action returns all users`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  findOne(id_usuario: number) {
+    return `This action returns a #${id_usuario} user`;
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  update(id_usuario: number, updateUserDto: UpdateUserDto) {
+    return `This action updates a #${id_usuario} user`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  remove(id_usuario: number) {
+    return this.userRepository.remove;
   }
 }

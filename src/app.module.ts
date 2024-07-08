@@ -1,9 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-// import { BreedsModule } from './breeds/breeds.module';
-// import { CatsModule } from './cats/cats.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { StockModule } from './stock/stock.module';
 
 @Module({
   imports: [
@@ -13,14 +12,14 @@ import { AuthModule } from './auth/auth.module';
       port: 3306,
       username: 'root',
       password: '',
-      database: 'db_crud',
+      database: 'JHASS',
       autoLoadEntities: true,
       synchronize: true,
     }),
-    // CatsModule,
-    // BreedsModule,
+    
     UsersModule,
     AuthModule,
+    StockModule,
   ],
   controllers: [],
   providers: [],

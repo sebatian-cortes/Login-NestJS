@@ -1,13 +1,8 @@
-import {
-  BadRequestException,
-  Injectable,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { Injectable, BadRequestException, UnauthorizedException } from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
 import { RegisterDto } from './dto/register.dto';
-
 import { JwtService } from '@nestjs/jwt';
-import * as bcryptjs from 'bcryptjs';
+import * as bcrypt from 'bcryptjs';
 import { LoginDto } from './dto/login.dto';
 
 @Injectable()
@@ -17,37 +12,43 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async register({ name, email, password }: RegisterDto) {
-    const user = await this.usersService.findOneByEmail(email);
+  async register({ nombre, correo, contraseña, edad, telefono, apellido }: RegisterDto) {
+    const user = await this.usersService.findOneByEmail(correo);
 
     if (user) {
-      throw new BadRequestException('User already exists');
+      throw new BadRequestException('El usuario ya existe');
     }
 
+    const hashedPassword = await bcrypt.hash(contraseña, 10);
+
     return await this.usersService.create({
-      name,
-      email,
-      password: await bcryptjs.hash(password, 10),
+      nombre,
+      edad,
+      telefono,
+      apellido,
+      correo,
+      contraseña: hashedPassword,
     });
   }
 
-  async login({ email, password }: LoginDto) {
-    const user = await this.usersService.findOneByEmail(email);
+  async login({ correo, contraseña }: LoginDto) {
+    const user = await this.usersService.findOneByEmail(correo);
+    
     if (!user) {
-      throw new UnauthorizedException('email is wrong');
+      throw new UnauthorizedException('El correo electrónico es incorrecto');
     }
 
-    const isPasswordValid = await bcryptjs.compare(password, user.password);
+    const isPasswordValid = await bcrypt.compare(contraseña, user.contraseña);
     if (!isPasswordValid) {
-      throw new UnauthorizedException('password is wrong');
+      throw new UnauthorizedException('La contraseña es incorrecta');
     }
 
-    const payload = { email: user.email };
+    const payload = { correo: user.correo };
     const token = await this.jwtService.signAsync(payload);
 
     return {
       token,
-      email,
+      correo
     };
   }
 }

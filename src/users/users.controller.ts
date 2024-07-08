@@ -3,7 +3,7 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
-@Controller('users')
+@Controller('usuario')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
@@ -17,18 +17,18 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.usersService.findOne(+id);
+  @Get(':id_usuario')
+  findOne(@Param('id_usuario') id_usuario: string) {
+    return this.usersService.findOne(+id_usuario);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(+id, updateUserDto);
+  @Patch(':id_usuario')
+  update(@Param('id_usuario') id_usuario: string, @Body() updateUserDto: UpdateUserDto) {
+    return this.usersService.update(+id_usuario, updateUserDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.usersService.remove(+id);
+  @Delete(':id_usuario')
+  remove(@Param('id_usuario') id_usuario: string) {
+    return this.usersService.remove(+id_usuario);
   }
 }
