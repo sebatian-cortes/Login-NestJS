@@ -29,7 +29,7 @@ export class UsersService {
   }
 
   update(id_usuario: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id_usuario} user`;
+    return this.userRepository.update(id_usuario,updateUserDto);
   }
 
   remove(id_usuario: number) {
