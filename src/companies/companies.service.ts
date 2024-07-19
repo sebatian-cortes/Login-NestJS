@@ -14,23 +14,23 @@ export class CompaniesService {
     private companyRepository: Repository<Company>,
   ) {}
 
-  create(createCompanyDto: CreateCompanyDto) {
-    return this.companyRepository.save(createCompanyDto);
+  async create(createCompanyDto: CreateCompanyDto) {
+    return await this.companyRepository.save(createCompanyDto);
   }
 
   findAll() {
-    return `This action returns all companies`;
+    return this.companyRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} company`;
+  findOne(id_company: number) {
+    return this.companyRepository.findOneBy({ id_company });
   }
 
-  update(id: number, updateCompanyDto: UpdateCompanyDto) {
-    return `This action updates a #${id} company`;
+  update(id_company: number, updateCompanyDto: UpdateCompanyDto) {
+    return this.companyRepository.update ( {id_company}, updateCompanyDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} company`;
+  remove(id_company: number) {
+    return this.companyRepository.softDelete({ id_company });
   }
 }

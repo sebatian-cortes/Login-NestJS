@@ -8,6 +8,7 @@ import { jwtConstants } from './constants/jwt.constant';
 @Module({
   imports: [
     UsersModule,
+
     JwtModule.register({
       global: true,
       secret: jwtConstants.secret,

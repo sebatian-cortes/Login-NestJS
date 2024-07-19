@@ -6,8 +6,12 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  const cors = require('cors')
+
 
   app.setGlobalPrefix('api/v1');
+
+  app.use(cors())
 
   app.useGlobalPipes(
     new ValidationPipe({
@@ -21,10 +25,10 @@ async function bootstrap() {
   .setTitle('JHASS')
   .setDescription('Holam')
   .setVersion('1.0')
-  .addTag('tag')
+  .addTag('JHASS')
   .build();
 const document = SwaggerModule.createDocument(app, options);
-SwaggerModule.setup('api', app, document);
+SwaggerModule.setup('documentation', app, document);
 
   await app.listen(3000);
 }

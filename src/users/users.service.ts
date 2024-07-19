@@ -21,18 +21,19 @@ export class UsersService {
   }
 
   findAll() {
-    return `This action returns all users`;
+    return this.userRepository.find();
   }
 
   findOne(id_usuario: number) {
-    return `This action returns a #${id_usuario} user`;
+    return this.userRepository.findOneBy({ id_usuario });
   }
 
+  //falta que funcione
   update(id_usuario: number, updateUserDto: UpdateUserDto) {
-    return this.userRepository.update(id_usuario,updateUserDto);
+    return this.userRepository.update({id_usuario}, updateUserDto);
   }
 
   remove(id_usuario: number) {
-    return this.userRepository.remove;
+    return this.userRepository.softDelete(id_usuario);
   }
 }

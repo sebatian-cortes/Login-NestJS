@@ -1,8 +1,39 @@
+import { Transform } from 'class-transformer';
+import { IsEmail, IsString, MinLength } from 'class-validator';
+
 export class CreateCompanyDto {
+
+
+  @IsEmail()
   email: string;
-  contraseña?: string;
-  name?: string;
+
+  
+  @Transform(({ value }) => value.trim())
+  @IsString()
+  @MinLength(1)
+  sector: string;
+
+  
+  @Transform(({ value }) => value.trim())
+  @IsString()
+  @MinLength(1)
+  name: string;
+
+  
+  @Transform(({ value }) => value.trim())
+  @IsString()
+  @MinLength(1)
   description:string;
+
+  
+  @Transform(({ value }) => value.trim())
+  @IsString()
+  @MinLength(1)
   type:string;
+
+  
+  @Transform(({ value }) => value.trim())
+  @IsString()
+  @MinLength(1)
   address:string;
 }
