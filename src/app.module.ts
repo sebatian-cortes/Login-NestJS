@@ -4,6 +4,8 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { CompaniesModule } from './companies/companies.module';
 import { StockModule } from './stock/stock.module';
+import { SaleModule } from './sale/sale.module';
+import { TaskModule } from './task/task.module';
 
 @Module({
   imports: [
@@ -23,6 +25,8 @@ import { StockModule } from './stock/stock.module';
     AuthModule,
     CompaniesModule,
     StockModule,
+    SaleModule,
+    TaskModule,
   ],
   controllers: [],
   providers: [],
