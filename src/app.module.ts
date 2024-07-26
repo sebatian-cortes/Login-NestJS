@@ -3,9 +3,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { CompaniesModule } from './companies/companies.module';
-import { StockModule } from './stock/stock.module';
 import { SaleModule } from './sale/sale.module';
 import { TaskModule } from './task/task.module';
+import { PayModule } from './pay/pay.module';
+import { NoveltyModule } from './novelty/novelty.module';
 
 @Module({
   imports: [
@@ -24,9 +25,10 @@ import { TaskModule } from './task/task.module';
     UsersModule,
     AuthModule,
     CompaniesModule,
-    StockModule,
     SaleModule,
     TaskModule,
+    PayModule,
+    NoveltyModule,
   ],
   controllers: [],
   providers: [],
