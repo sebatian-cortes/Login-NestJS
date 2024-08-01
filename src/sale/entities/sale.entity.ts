@@ -1,6 +1,9 @@
+import { User } from 'src/users/entities/user.entity';
 import {
     Column,
     Entity,
+    JoinColumn,
+    ManyToMany,
     PrimaryGeneratedColumn,
   } from 'typeorm';
 
@@ -16,5 +19,7 @@ export class Sale {
     @Column()
     price_total: number;
 
-
+    @ManyToMany(() => User, user => user.sales)
+    @JoinColumn()
+    user: User;
 }

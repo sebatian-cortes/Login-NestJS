@@ -1,9 +1,11 @@
+import { PaymentHistory } from 'src/payment_history/entities/payment_history.entity';
 import { User } from 'src/users/entities/user.entity';
 import {
     Column,
     Entity,
     JoinColumn,
     OneToOne,
+    ManyToOne,
     PrimaryGeneratedColumn,
   } from 'typeorm';
 
@@ -23,7 +25,11 @@ export class Pay {
     @Column()
     id_usuario: number;
 
-    @OneToOne(() => User, user => user.pay)
+    @OneToOne(() => User, user => user.pays)
     @JoinColumn()
     user: User;
+
+    @ManyToOne(()=> PaymentHistory, paymentHistory => paymentHistory.pays)
+    @JoinColumn()
+    paymentHistory: PaymentHistory;
 }

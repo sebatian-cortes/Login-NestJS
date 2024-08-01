@@ -1,5 +1,7 @@
 import { Novelty } from 'src/novelty/entities/novelty.entity';
 import { Pay } from 'src/pay/entities/pay.entity';
+import { PaymentHistory } from 'src/payment_history/entities/payment_history.entity';
+import { Sale } from 'src/sale/entities/sale.entity';
 import {
   Column,
   DeleteDateColumn,
@@ -7,6 +9,7 @@ import {
   JoinColumn,
   OneToMany,
   OneToOne,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -45,5 +48,9 @@ export class User {
 
   @OneToOne(() => Pay, pay => pay.user)
   @JoinColumn()
-  pay: Pay;
+  pays: Pay;
+
+  @OneToMany(() => Sale, sale => sale.user)
+  @JoinColumn()
+  sales: Sale[];
 }

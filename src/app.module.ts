@@ -7,6 +7,9 @@ import { SaleModule } from './sale/sale.module';
 import { TaskModule } from './task/task.module';
 import { PayModule } from './pay/pay.module';
 import { NoveltyModule } from './novelty/novelty.module';
+import { PaymentHistoryModule } from './payment_history/payment_history.module';
+import { CategoryModule } from './category/category.module';
+import { MotionModule } from './motion/motion.module';
 
 @Module({
   imports: [
@@ -29,6 +32,10 @@ import { NoveltyModule } from './novelty/novelty.module';
     TaskModule,
     PayModule,
     NoveltyModule,
+    PaymentHistoryModule,
+    PayModule,
+    CategoryModule,
+    MotionModule,
   ],
   controllers: [],
   providers: [],
