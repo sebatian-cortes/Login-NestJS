@@ -30,5 +30,5 @@ export class Novelty {
     @JoinColumn()
     user: User;
 
-    @OneToOne(() => )
+    
 }
