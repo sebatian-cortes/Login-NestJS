@@ -1,6 +1,10 @@
+import { User } from 'src/users/entities/user.entity';
 import {
     Column,
     Entity,
+    JoinColumn,
+    ManyToOne,
+    OneToOne,
     PrimaryGeneratedColumn,
   } from 'typeorm';
 
@@ -21,4 +25,10 @@ export class Novelty {
 
     @Column()
     date_detection: Date;
+
+    @ManyToOne(() => User, user => user.noveltys)
+    @JoinColumn()
+    user: User;
+
+    @OneToOne(() => )
 }

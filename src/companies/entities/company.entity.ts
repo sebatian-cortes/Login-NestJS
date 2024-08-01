@@ -1,8 +1,11 @@
+import { Product } from 'src/product/entities/product.entity';
 import {
     Column,
     DeleteDateColumn,
     Entity,
+    OneToMany,
     PrimaryGeneratedColumn,
+    JoinColumn
   } from 'typeorm';
 
 @Entity('company')
@@ -31,4 +34,8 @@ export class Company {
 
     @DeleteDateColumn()
     deletedAt: Date;
+
+    @OneToMany(()=> Product, product => product.company)
+    @JoinColumn()
+    products: Product[];
 }

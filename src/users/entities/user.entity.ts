@@ -1,7 +1,12 @@
+import { Novelty } from 'src/novelty/entities/novelty.entity';
+import { Pay } from 'src/pay/entities/pay.entity';
 import {
   Column,
   DeleteDateColumn,
   Entity,
+  JoinColumn,
+  OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -33,4 +38,12 @@ export class User {
 
   @DeleteDateColumn()
   deletedAt: Date;
+
+  @OneToMany(() => Novelty, novelty => novelty.user)
+  @JoinColumn()
+  noveltys: Novelty[];
+
+  @OneToOne(() => Pay, pay => pay.user)
+  @JoinColumn()
+  pay: Pay;
 }

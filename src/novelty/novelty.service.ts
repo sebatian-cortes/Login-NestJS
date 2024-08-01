@@ -29,6 +29,6 @@ export class NoveltyService {
   }
 
   remove(id_novetly: number) {
-    return this.novetlyRepository.softDelete({id_novetly});
+    return this.novetlyRepository.softDelete({id_novetly}); 
   }
 }
