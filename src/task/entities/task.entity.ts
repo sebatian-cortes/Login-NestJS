@@ -1,8 +1,10 @@
+import { TaskAssignment } from 'src/task_assignment/entities/task_assignment.entity';
 import {
     Column,
     Entity,
     ManyToMany,
     PrimaryGeneratedColumn,
+    JoinColumn
   } from 'typeorm';
 
 @Entity('task')  
@@ -20,4 +22,7 @@ export class Task {
     @Column()
     state: string;
 
+    @ManyToMany(() => TaskAssignment, taskAssignment => taskAssignment.task)
+    @JoinColumn()
+    taskAssignments: TaskAssignment[];
 }

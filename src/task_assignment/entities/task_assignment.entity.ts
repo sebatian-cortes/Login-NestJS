@@ -1,3 +1,5 @@
+import { Task } from 'src/task/entities/task.entity';
+import { User } from 'src/users/entities/user.entity';
 import {
     Column,
     Entity,
@@ -17,7 +19,11 @@ export class TaskAssignment {
     @Column()
     creation_date: Date;
 
-    // @ManyToMany(() => )
-    // @JoinColumn()
+    @ManyToMany(() => User, user => user.taskAssignments)
+    @JoinColumn()
+    user: User[];
 
+    @ManyToMany(() => Task, task => task.taskAssignments)
+    @JoinColumn()
+    task: Task[];
 }

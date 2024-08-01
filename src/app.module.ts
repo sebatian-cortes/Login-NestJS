@@ -12,6 +12,7 @@ import { CategoryModule } from './category/category.module';
 import { MotionModule } from './motion/motion.module';
 import { TaskAssignmentModule } from './task_assignment/task_assignment.module';
 import { CompanyUserModule } from './company_user/company_user.module';
+import { UserEventModule } from './user_event/user_event.module';
 
 @Module({
   imports: [
@@ -39,6 +40,7 @@ import { CompanyUserModule } from './company_user/company_user.module';
     MotionModule,
     TaskAssignmentModule,
     CompanyUserModule,
+    UserEventModule,
   ],
   controllers: [],
   providers: [],
