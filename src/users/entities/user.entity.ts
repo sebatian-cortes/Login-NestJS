@@ -1,3 +1,5 @@
+import { CompanyUser } from 'src/company_user/entities/company_user.entity';
+import { Product } from './../../product/entities/product.entity';
 import { Novelty } from 'src/novelty/entities/novelty.entity';
 import { Pay } from 'src/pay/entities/pay.entity';
 import { PaymentHistory } from 'src/payment_history/entities/payment_history.entity';
@@ -9,7 +11,7 @@ import {
   JoinColumn,
   OneToMany,
   OneToOne,
-  ManyToOne,
+  ManyToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -53,4 +55,8 @@ export class User {
   @OneToMany(() => Sale, sale => sale.user)
   @JoinColumn()
   sales: Sale[];
+
+  @ManyToMany(() => CompanyUser, companyUser => companyUser.user)
+  @JoinColumn()
+  companyUsers: CompanyUser[];
 }

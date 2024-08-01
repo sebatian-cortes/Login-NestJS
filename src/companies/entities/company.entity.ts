@@ -1,3 +1,4 @@
+import { CompanyUser } from 'src/company_user/entities/company_user.entity';
 import { Product } from 'src/product/entities/product.entity';
 import {
     Column,
@@ -5,7 +6,8 @@ import {
     Entity,
     OneToMany,
     PrimaryGeneratedColumn,
-    JoinColumn
+    JoinColumn,
+    ManyToMany
   } from 'typeorm';
 
 @Entity('company')
@@ -38,4 +40,8 @@ export class Company {
     @OneToMany(()=> Product, product => product.company)
     @JoinColumn()
     products: Product[];
+
+    @ManyToMany(() => CompanyUser, companyUser => companyUser.company)
+    @JoinColumn()
+    companyUsers: CompanyUser[];
 }

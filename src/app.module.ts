@@ -10,6 +10,8 @@ import { NoveltyModule } from './novelty/novelty.module';
 import { PaymentHistoryModule } from './payment_history/payment_history.module';
 import { CategoryModule } from './category/category.module';
 import { MotionModule } from './motion/motion.module';
+import { TaskAssignmentModule } from './task_assignment/task_assignment.module';
+import { CompanyUserModule } from './company_user/company_user.module';
 
 @Module({
   imports: [
@@ -30,12 +32,13 @@ import { MotionModule } from './motion/motion.module';
     CompaniesModule,
     SaleModule,
     TaskModule,
-    PayModule,
     NoveltyModule,
     PaymentHistoryModule,
     PayModule,
     CategoryModule,
     MotionModule,
+    TaskAssignmentModule,
+    CompanyUserModule,
   ],
   controllers: [],
   providers: [],
