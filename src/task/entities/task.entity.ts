@@ -1,4 +1,3 @@
-import { TaskAssignment } from 'src/task_assignment/entities/task_assignment.entity';
 import {
     Column,
     Entity,
@@ -22,7 +21,4 @@ export class Task {
     @Column()
     state: string;
 
-    @ManyToMany(() => TaskAssignment, taskAssignment => taskAssignment.task)
-    @JoinColumn()
-    taskAssignments: TaskAssignment[];
 }

@@ -10,9 +10,8 @@ import { NoveltyModule } from './novelty/novelty.module';
 import { PaymentHistoryModule } from './payment_history/payment_history.module';
 import { CategoryModule } from './category/category.module';
 import { MotionModule } from './motion/motion.module';
-import { TaskAssignmentModule } from './task_assignment/task_assignment.module';
 import { CompanyUserModule } from './company_user/company_user.module';
-import { UserEventModule } from './user_event/user_event.module';
+import { ProductModule } from './product/product.module';
 
 @Module({
   imports: [
@@ -38,9 +37,8 @@ import { UserEventModule } from './user_event/user_event.module';
     PayModule,
     CategoryModule,
     MotionModule,
-    TaskAssignmentModule,
     CompanyUserModule,
-    UserEventModule,
+    ProductModule,
   ],
   controllers: [],
   providers: [],

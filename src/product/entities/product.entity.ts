@@ -29,18 +29,12 @@ export class Product {
     @Column()
     description: string;
 
-    @Column()
-    id_category: number;
-
     @ManyToOne(()=> Category, category => category.products)
-    @JoinColumn()
     category: Category;
 
     @ManyToOne(()=> Company, company => company.products)
-    @JoinColumn()
     company: Company;
 
     @OneToMany(() => Motion, motion => motion.product)
-    @JoinColumn()
     motions: Motion[];
 }

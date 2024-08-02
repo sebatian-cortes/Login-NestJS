@@ -1,5 +1,5 @@
 import { Transform } from 'class-transformer';
-import {IsString, MinLength, IsNumber, Min } from 'class-validator';
+import {IsString, MinLength } from 'class-validator';
 
 export class CreateCategoryDto {
 

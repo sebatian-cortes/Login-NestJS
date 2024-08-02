@@ -14,7 +14,7 @@ import {
   ManyToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { TaskAssignment } from 'src/task_assignment/entities/task_assignment.entity';
+
 
 @Entity('usuario')
 export class User {
@@ -61,7 +61,4 @@ export class User {
   @JoinColumn()
   companyUsers: CompanyUser[];
 
-  @ManyToMany(() => TaskAssignment, taskAssignment => taskAssignment.user)
-  @JoinColumn()
-  taskAssignments: TaskAssignment[];
 }
