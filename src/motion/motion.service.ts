@@ -18,7 +18,11 @@ export class MotionService {
   }
 
   findAll() {
-    return this.motionRepository.find();
+    return this.motionRepository.find({
+      relations: {
+        product: true,
+      }
+    });
   }
 
   findOne(id_motion: number) {

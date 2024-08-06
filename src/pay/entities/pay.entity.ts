@@ -22,14 +22,17 @@ export class Pay {
     @Column()
     amount: number;
 
-    @Column()
-    id_usuario: number;
+    @Column({name: 'user_id'})
+    userId: number;
 
-    @OneToOne(() => User, user => user.pays)
-    @JoinColumn()
+    @Column({name: 'paymentHistory_id'})
+    paymentHistoryId: number;
+
+    @OneToOne(() => User, (user) => user.pay)
+    @JoinColumn({name: 'user_id'})
     user: User;
 
-    @ManyToOne(()=> PaymentHistory, paymentHistory => paymentHistory.pays)
-    @JoinColumn()
+    @ManyToOne(()=> PaymentHistory, (paymentHistory) => paymentHistory.pay)
+    @JoinColumn({name: 'paymentHistory_id'})
     paymentHistory: PaymentHistory;
 }

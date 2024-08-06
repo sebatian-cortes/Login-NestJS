@@ -18,7 +18,12 @@ export class CategoryService {
   }
 
   findAll() {
-    return this.categoryRepository.find();
+    return this.categoryRepository.find({
+      relations:
+      {
+        product: true,
+        
+      }});
   }
 
   findOne(id_category: number) {

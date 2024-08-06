@@ -1,3 +1,4 @@
+import { User } from 'src/users/entities/user.entity';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
@@ -12,6 +13,16 @@ import { CategoryModule } from './category/category.module';
 import { MotionModule } from './motion/motion.module';
 import { CompanyUserModule } from './company_user/company_user.module';
 import { ProductModule } from './product/product.module';
+import { AppService } from './app.service';
+import { AppController } from './app.controller';
+import { Category } from './category/entities/category.entity';
+import { Company } from './companies/entities/company.entity';
+import { Motion } from './motion/entities/motion.entity';
+import { PaymentHistory } from './payment_history/entities/payment_history.entity';
+import { Pay } from './pay/entities/pay.entity';
+import { Product } from './product/entities/product.entity';
+import { Sale } from './sale/entities/sale.entity';
+import { Task } from './task/entities/task.entity';
 
 @Module({
   imports: [
@@ -22,8 +33,9 @@ import { ProductModule } from './product/product.module';
       username: 'root',
       password: '',
       database: 'JHASS',
+      entities: [Category, Company, Motion, User, PaymentHistory, Pay, Product, Sale, Task],
       autoLoadEntities: true,
-      synchronize: true,
+      synchronize: false,
     }),
     
     
@@ -40,7 +52,7 @@ import { ProductModule } from './product/product.module';
     CompanyUserModule,
     ProductModule,
   ],
-  controllers: [],
-  providers: [],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}

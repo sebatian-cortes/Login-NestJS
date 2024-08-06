@@ -18,7 +18,11 @@ export class SaleService {
   }
 
   findAll() {
-    return this.saleRepository.find();
+    return this.saleRepository.find({
+      relations: {
+        user: true,
+      }
+    });
   }
 
   findOne(id_sale: number) {

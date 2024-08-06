@@ -18,7 +18,13 @@ export class ProductService {
   }
 
   findAll() {
-    return this.productRepository.find();
+    return this.productRepository.find({
+      relations: {
+        // category: true,
+        company: true,
+        motion: true,
+      }
+    });
   }
 
   findOne(id_product: number) {

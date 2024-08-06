@@ -37,11 +37,14 @@ export class Company {
     @DeleteDateColumn()
     deletedAt: Date;
 
-    @OneToMany(()=> Product, product => product.company)
-    @JoinColumn()
-    products: Product[];
+    @Column({name: 'product_id'})
+    productId: number;
 
-    @ManyToMany(() => CompanyUser, companyUser => companyUser.company)
+    @OneToMany(()=> Product, (product) => product.company)
+    @JoinColumn({name: 'product_id'})
+    product: Product[];
+
+    @ManyToMany(() => CompanyUser, (companyUser) => companyUser.company)
     @JoinColumn()
-    companyUsers: CompanyUser[];
+    companyUsers: CompanyUser;
 }

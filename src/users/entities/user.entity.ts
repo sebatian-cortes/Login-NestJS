@@ -16,7 +16,7 @@ import {
 } from 'typeorm';
 
 
-@Entity('usuario')
+@Entity('users')
 export class User {
   @PrimaryGeneratedColumn()
   id_usuario: number;
@@ -45,19 +45,19 @@ export class User {
   @DeleteDateColumn()
   deletedAt: Date;
 
-  @OneToMany(() => Novelty, novelty => novelty.user)
+  @OneToMany(() => Novelty, (novelty) => novelty.user)
   @JoinColumn()
   noveltys: Novelty[];
 
-  @OneToOne(() => Pay, pay => pay.user)
+  @OneToOne(() => Pay, (pay) => pay.user)
   @JoinColumn()
-  pays: Pay;
+  pay: Pay;
 
-  @OneToMany(() => Sale, sale => sale.user)
+  @OneToMany(() => Sale, (sale) => sale.user)
   @JoinColumn()
   sales: Sale[];
 
-  @ManyToMany(() => CompanyUser, companyUser => companyUser.user)
+  @ManyToMany(() => CompanyUser, (companyUser) => companyUser.user)
   @JoinColumn()
   companyUsers: CompanyUser[];
 

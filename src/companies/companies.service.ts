@@ -19,7 +19,12 @@ export class CompaniesService {
   }
 
   findAll() {
-    return this.companyRepository.find();
+    return this.companyRepository.find({
+      relations: {
+        product: true,
+        companyUsers: true,
+      }
+    });
   }
 
   findOne(id_company: number) {

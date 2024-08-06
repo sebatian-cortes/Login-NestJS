@@ -26,8 +26,11 @@ export class Novelty {
     @Column()
     date_detection: Date;
 
-    @ManyToOne(() => User, user => user.noveltys)
-    @JoinColumn()
+    @Column({name: 'user_id'})
+    user_id: number;
+
+    @ManyToOne(() => User, (user) => user.noveltys)
+    @JoinColumn({name: 'user_id'})
     user: User;
 
     

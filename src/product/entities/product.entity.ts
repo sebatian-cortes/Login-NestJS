@@ -1,5 +1,4 @@
 import { Company } from 'src/companies/entities/company.entity';
-import { Category } from './../../category/entities/category.entity';
 import {
     Column,
     Entity,
@@ -9,6 +8,7 @@ import {
     OneToMany
   } from 'typeorm';
 import { Motion } from 'src/motion/entities/motion.entity';
+import { Category } from 'src/category/entities/category.entity';
 
 
 @Entity('product')  
@@ -28,13 +28,22 @@ export class Product {
 
     @Column()
     description: string;
+    
+    @Column({name: 'category_id'})
+    categoryId: number;
 
-    @ManyToOne(()=> Category, category => category.products)
+    @Column({name: 'company_id'})
+    companyId: number;
+
+    @ManyToOne(()=> Category, (category) => category.product)
+    @JoinColumn({name: 'category_id'})
     category: Category;
 
-    @ManyToOne(()=> Company, company => company.products)
+    @ManyToOne(()=> Company, (company) => company.product)
+    @JoinColumn({name: 'company_id'})
     company: Company;
 
-    @OneToMany(() => Motion, motion => motion.product)
-    motions: Motion[];
+    @OneToMany(() => Motion, (motion) => motion.product)
+    @JoinColumn({name: 'motion_id'})
+    motion: Motion[];
 }

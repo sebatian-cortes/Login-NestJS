@@ -22,7 +22,7 @@ export class PaymentHistory {
     @Column()
     Observations: string;
 
-    @OneToMany(() => Pay, pay => pay.paymentHistory)
+    @OneToMany(() => Pay, (pay) => pay.paymentHistory)
     @JoinColumn()
-    pays: Pay[];
+    pay: Pay[];
   }

@@ -19,7 +19,7 @@ export class Sale {
     @Column()
     price_total: number;
 
-    @ManyToMany(() => User, user => user.sales)
+    @ManyToMany(() => User, (user) => user.sales)
     @JoinColumn()
     user: User;
 }

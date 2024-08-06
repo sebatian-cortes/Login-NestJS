@@ -17,7 +17,11 @@ export class NoveltyService {
   }
 
   findAll() {
-    return this.novetlyRepository.find();
+    return this.novetlyRepository.find({
+      relations:{
+        user: true,
+      }
+    });
   }
 
   findOne(id_novetly: number) {

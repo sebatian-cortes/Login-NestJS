@@ -25,7 +25,10 @@ export class Motion {
     @Column()
     stock_remaining: number;
 
-    @ManyToOne(() => Product, product => product.motions)
-    @JoinColumn()
+    @Column({name: 'product_id'})
+    productId: number;
+
+    @ManyToOne(() => Product, (product) => product.motion)
+    @JoinColumn({name: 'product_id'})
     product: Product;
 }

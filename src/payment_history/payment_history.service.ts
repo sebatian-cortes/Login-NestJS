@@ -17,7 +17,11 @@ export class PaymentHistoryService {
   }
 
   findAll() {
-    return this.PaymentHistoryRepository.find();
+    return this.PaymentHistoryRepository.find({
+      relations: {
+        pay: true,
+      }
+    });
   }
 
   findOne(ID_payment_history: number) {
