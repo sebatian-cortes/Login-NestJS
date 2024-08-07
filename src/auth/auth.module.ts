@@ -4,10 +4,12 @@ import { UsersModule } from 'src/users/users.module';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { jwtConstants } from './constants/jwt.constant';
+import { CompaniesModule } from 'src/companies/companies.module';
 
 @Module({
   imports: [
     UsersModule,
+    CompaniesModule,
 
     JwtModule.register({
       global: true,

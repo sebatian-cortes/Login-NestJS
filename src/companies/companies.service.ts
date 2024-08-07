@@ -26,6 +26,10 @@ export class CompaniesService {
     return this.companyRepository.findOneBy({ id_company });
   }
 
+  findOneByEmail(email: string){
+    return this.companyRepository.findOneBy({ email})
+  }
+
   update(id_company: number, updateCompanyDto: UpdateCompanyDto) {
     return this.companyRepository.update ( {id_company}, updateCompanyDto);
   }

@@ -4,12 +4,16 @@ import { RegisterDto } from './dto/register.dto';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';
 import { LoginDto } from './dto/login.dto';
+import { LoginCompanyDto } from './dto/loginCompany.dto';
+import { RegisterCompanyDto } from './dto/registerCompany.dto';
+import { CompaniesService } from 'src/companies/companies.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly usersService: UsersService,
     private readonly jwtService: JwtService,
+    private readonly companiesService: CompaniesService,
   ) {}
 
   async register({ nombre, correo, contraseña, edad, telefono, apellido }: RegisterDto) {
@@ -50,6 +54,42 @@ export class AuthService {
     return {
       token,
       correo
+    };
+  }
+
+  async registerCompany({ email, name, sector, description,type,address }: RegisterCompanyDto) {
+    
+      const company = await this.usersService.findOneByEmail(email);
+
+    if (company) {
+      throw new BadRequestException('La empresa ya existe');
+    }
+
+    return await this.companiesService.create({
+      name,
+      sector,
+      description,
+      type,
+      email,
+      address,
+    });  
+  }
+
+  async loginCompany({ email, rol }: LoginCompanyDto) {
+    const company = await this.companiesService.findOneByEmail(email);
+
+    
+    if (!company) {
+      throw new UnauthorizedException('El correo electrónico es incorrecto');
+    }
+
+    const payload = { email: company.email, rol: rol };
+    const token = await this.jwtService.signAsync(payload);
+
+    return {
+      token,
+      email,
+      rol
     };
   }
 }
