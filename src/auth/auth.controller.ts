@@ -44,7 +44,9 @@ export class AuthController {
   }
 
   @Post('loginCompany')
+  @UseGuards(AuthGuard)
   loginCompany(
+    @Request() req,
     @Body()
     loginCompanyDto: LoginCompanyDto,
   ) {
