@@ -1,3 +1,4 @@
+import { cp } from 'fs';
 import {
   Column,
   DeleteDateColumn,
@@ -29,7 +30,11 @@ export class User {
   contraseña: string;
 
   // @Column({ default: 'user' })
-  // rol: string;
+ // rol: string;
+
+  @Column({ type: 'uuid', unique: true, name: 'reset_password_token', nullable: true,})
+  resetPasswordToken: string;
+  
 
   @DeleteDateColumn()
   deletedAt: Date;

@@ -1,0 +1,4 @@
+interface JwtPayload {
+    correo: string;
+  }
+  
