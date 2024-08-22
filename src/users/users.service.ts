@@ -36,4 +36,8 @@ export class UsersService {
   remove(id_usuario: number) {
     return this.userRepository.softDelete(id_usuario);
   }
+
+   restoreUserById(id_usuario: number){
+    return this.userRepository.restore(id_usuario)
+   }
 }

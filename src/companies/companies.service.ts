@@ -22,19 +22,19 @@ export class CompaniesService {
     return this.companyRepository.find();
   }
 
-  findOne(id_company: number) {
-    return this.companyRepository.findOneBy({ id_company });
+  findOne(id: number) {
+    return this.companyRepository.findOneBy({ id });
   }
 
   findOneByEmail(email: string){
     return this.companyRepository.findOneBy({ email})
   }
 
-  update(id_company: number, updateCompanyDto: UpdateCompanyDto) {
-    return this.companyRepository.update ( {id_company}, updateCompanyDto);
+  update(id: number, updateCompanyDto: UpdateCompanyDto) {
+    return this.companyRepository.update ( {id}, updateCompanyDto);
   }
 
-  remove(id_company: number) {
-    return this.companyRepository.softDelete({ id_company });
+  remove(id: number) {
+    return this.companyRepository.softDelete({ id });
   }
 }

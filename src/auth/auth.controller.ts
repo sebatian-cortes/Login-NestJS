@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  Patch,
   Post,
   Request,
   UseGuards,
@@ -34,7 +35,7 @@ export class AuthController {
   }
 
   @Post('registerCompany')
-  @UseGuards(AuthGuard)
+  // @UseGuards(AuthGuard)
   registerCompany(
     @Request() req,
     @Body()
@@ -44,7 +45,7 @@ export class AuthController {
   }
 
   @Post('loginCompany')
-  @UseGuards(AuthGuard)
+  // @UseGuards(AuthGuard)
   loginCompany(
     @Request() req,
     @Body()

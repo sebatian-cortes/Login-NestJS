@@ -5,6 +5,8 @@ import { AuthModule } from './auth/auth.module';
 import { CompaniesModule } from './companies/companies.module';
 import { TaskModule } from './task/task.module';
 import { ProductModule } from './product/product.module';
+import { ProfileModule } from './profile/profile.module';
+import { RolesModule } from './roles/roles.module';
 
 
 @Module({
@@ -26,6 +28,8 @@ import { ProductModule } from './product/product.module';
     CompaniesModule,
     TaskModule,
     ProductModule,
+    ProfileModule,
+    RolesModule,
     
   ],
   controllers: [],

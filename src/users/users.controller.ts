@@ -36,4 +36,9 @@ export class UsersController {
   remove(@Param('id_usuario') id_usuario: number) {
     return this.usersService.remove(+id_usuario);
   }
+  
+  @Patch(':id_usuario')
+  restoreUserById(@Param('id_usuario') id_usuario:number){
+     return this.usersService.restoreUserById(+id_usuario);
+  }
 }

@@ -2,14 +2,21 @@ import {
     Column,
     DeleteDateColumn,
     Entity,
+    ManyToOne,
+    OneToMany,
     PrimaryGeneratedColumn,
   } from 'typeorm';
+
+  import { User } from 'src/users/entities/user.entity'; 
+import { Profile } from 'src/profile/entities/profile.entity';
+
+
 
 @Entity('company')
 export class Company {
 
     @PrimaryGeneratedColumn()
-    id_company: number;
+    id: number;
 
     @Column()
     name: string;
@@ -31,4 +38,9 @@ export class Company {
 
     @DeleteDateColumn()
     deletedAt: Date;
+
+    @OneToMany(() => Profile, profile => profile.company )
+    profile: Profile[];
+
+
 }
