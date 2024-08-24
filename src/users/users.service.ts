@@ -40,4 +40,7 @@ export class UsersService {
    restoreUserById(id_usuario: number){
     return this.userRepository.restore(id_usuario)
    }
+   async saveUser(user: User) {
+    return this.userRepository.save(user);
+  }
 }

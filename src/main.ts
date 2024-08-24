@@ -23,9 +23,10 @@ async function bootstrap() {
 
   const options = new DocumentBuilder()
   .setTitle('JHASS')
-  .setDescription('Holam')
+  .setDescription('Hola')
   .setVersion('1.0')
   .addTag('JHASS')
+  .addBearerAuth()
   .build();
 const document = SwaggerModule.createDocument(app, options);
 SwaggerModule.setup('documentation', app, document);

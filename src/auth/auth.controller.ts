@@ -4,6 +4,7 @@ import {
   Get,
   Patch,
   Post,
+  Put,
   Request,
   UseGuards,
 } from '@nestjs/common';
@@ -13,7 +14,11 @@ import { RegisterDto } from './dto/register.dto';
 import { AuthGuard } from './guard/auth.guard';
 import { LoginCompanyDto } from './dto/loginCompany.dto';
 import { RegisterCompanyDto } from './dto/registerCompany.dto';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ChangePasswordDto } from './dto/change-password.dto';
 
+@ApiTags('auth')
+@ApiBearerAuth()
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
@@ -60,4 +65,11 @@ export class AuthController {
     return req.user;
   }
 
+@UseGuards(AuthGuard)
+@Put('change-password')
+async changePassword(@Request() req, @Body() changePasswordDto: ChangePasswordDto) {
+  const { oldPassword, newPassword } = changePasswordDto;
+  const id_usuario = req.user.id_usuario;  // Esto debería funcionar si el token es decodificado correctamente
+  return this.authService.changePassword(id_usuario, oldPassword, newPassword);
+}
 }

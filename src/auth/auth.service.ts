@@ -1,4 +1,4 @@
-import { Injectable, BadRequestException, UnauthorizedException } from '@nestjs/common';
+import { Injectable, BadRequestException, UnauthorizedException, NotFoundException } from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
 import { RegisterDto } from './dto/register.dto';
 import { JwtService } from '@nestjs/jwt';
@@ -53,7 +53,7 @@ export class AuthService {
       throw new UnauthorizedException('La contraseña es incorrecta');
     }
 
-    const payload = { correo: user.correo };
+    const payload = { correo: user.correo, id_usuario: user.id_usuario };
     const token = await this.jwtService.signAsync(payload);
 
     return {
@@ -97,4 +97,22 @@ export class AuthService {
       rol
     };
   }
+  async changePassword(id_usuario: number, oldPassword: string, newPassword: string) {
+    const user = await this.usersService.findOne(id_usuario);
+    if (!user) {
+      throw new NotFoundException('Usuario no encontrado');
+    }
+  
+    const passwordMatch = await bcrypt.compare(oldPassword, user.contraseña);
+    if (!passwordMatch) {
+      throw new UnauthorizedException('Credenciales incorrectas');
+    }
+  
+    const newHashedPassword = await bcrypt.hash(newPassword, 10);
+    user.contraseña = newHashedPassword;
+    await this.usersService.saveUser(user);
+    
+    return { message: 'Contraseña cambiada con éxito' };
+  }
+
 }
