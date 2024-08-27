@@ -1,3 +1,5 @@
+import { RefreshToken } from './entities/refresh-token.entity';
+import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import {
   Body,
   Controller,
@@ -16,6 +18,7 @@ import { LoginCompanyDto } from './dto/loginCompany.dto';
 import { RegisterCompanyDto } from './dto/registerCompany.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { ChangePasswordDto } from './dto/change-password.dto';
+import { RefreshTokenDto } from './dto/refresh-tokens.dto';
 
 @ApiTags('auth')
 @ApiBearerAuth()
@@ -64,6 +67,10 @@ export class AuthController {
   profile(@Request() req) {
     return req.user;
   }
+@Post('refresh')
+async refreshTokens(@Body() refreshTokenDto: RefreshTokenDto){
+  return this.authService.refreshTokens(refreshTokenDto.refreshToken);
+}
 
 @UseGuards(AuthGuard)
 @Put('change-password')
@@ -71,5 +78,10 @@ async changePassword(@Request() req, @Body() changePasswordDto: ChangePasswordDt
   const { oldPassword, newPassword } = changePasswordDto;
   const id_usuario = req.user.id_usuario;  // Esto debería funcionar si el token es decodificado correctamente
   return this.authService.changePassword(id_usuario, oldPassword, newPassword);
+}
+
+@Post('forgot-password')
+async forgotPassword(@Body() forgotPasswordDto: ForgotPasswordDto){
+  return this.authService.forgotPassword(forgotPasswordDto.correo)
 }
 }

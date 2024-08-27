@@ -1,3 +1,5 @@
+import { RefreshToken } from './entities/refresh-token.entity';
+import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import { Injectable, BadRequestException, UnauthorizedException, NotFoundException } from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
 import { RegisterDto } from './dto/register.dto';
@@ -7,6 +9,10 @@ import { LoginDto } from './dto/login.dto';
 import { LoginCompanyDto } from './dto/loginCompany.dto';
 import { RegisterCompanyDto } from './dto/registerCompany.dto';
 import { CompaniesService } from 'src/companies/companies.service';
+import { nanoid } from 'nanoid';
+import { v4 as uuidv4} from 'uuid';
+import { MoreThan, Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class AuthService {
@@ -14,6 +20,8 @@ export class AuthService {
     private readonly usersService: UsersService,
     private readonly jwtService: JwtService,
     private readonly companiesService: CompaniesService,
+    @InjectRepository(RefreshToken)
+    private readonly refreshTokenRepository: Repository<RefreshToken>,
   ) {}
 
   async register({ nombre, correo, contraseña, edad, telefono, apellido }: RegisterDto) {
@@ -53,14 +61,63 @@ export class AuthService {
       throw new UnauthorizedException('La contraseña es incorrecta');
     }
 
-    const payload = { correo: user.correo, id_usuario: user.id_usuario };
-    const token = await this.jwtService.signAsync(payload);
+    // const payload = { correo: user.correo, id_usuario: user.id_usuario };
+    // const token = await this.jwtService.signAsync(payload);
 
+  //   return {
+  //     token,
+  //     correo
+  // };
+    return this.tokens(user.id_usuario);
+  }
+
+  async refreshTokens(refreshToken: string){
+      const token = await this.refreshTokenRepository.findOne({
+       where: {
+        token: refreshToken,
+        expiryDate: MoreThan( new Date()),
+      },
+      });
+
+      if (!token) {
+          throw new UnauthorizedException("refresh token es invalido")
+      }
+
+      return this.tokens(token.id_usuario)
+  }
+
+  async tokens(id_usuario: number) {
+    const users = await this.usersService.findOne(id_usuario);
+
+    if (!users) {
+      throw new NotFoundException('Usuario no encontrado por id');
+    }
+
+    const payload = { correo: users.correo, id_usuario: users.id_usuario };
+    const token = await this.jwtService.signAsync(payload, {expiresIn: '1m'});
+    const refreshToken =uuidv4();
+    
+    await this.storeRefreshToken(refreshToken, id_usuario)
     return {
-      token,
-      correo
+        token,
+        refreshToken,
+        correo: users.correo,
     };
   }
+
+    async storeRefreshToken(token: string, id_usuario){
+      
+      const expiryDate = new Date();
+      expiryDate.setDate(expiryDate.getDate() + 1);
+
+     const refreshToken =await this.refreshTokenRepository.create({
+      token,
+      id_usuario,
+      expiryDate
+     });
+     await this.refreshTokenRepository.save(refreshToken);
+    }
+
 
   async registerCompany({ email, name, sector, description,type,address }: RegisterCompanyDto) {
     
@@ -115,4 +172,12 @@ export class AuthService {
     return { message: 'Contraseña cambiada con éxito' };
   }
 
+  async forgotPassword(correo: string){
+    const user = await this.usersService.findOneByEmail(correo)
+
+      if (user) {
+        const resetToken = nanoid(64)
+      }
+      return {"mensaje": "si este usuario existe recibira un correo el"}
+  }
 }

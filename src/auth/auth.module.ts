@@ -5,16 +5,18 @@ import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { jwtConstants } from './constants/jwt.constant';
 import { CompaniesModule } from 'src/companies/companies.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { RefreshToken } from './entities/refresh-token.entity';
 
 @Module({
   imports: [
     UsersModule,
     CompaniesModule,
-
+    TypeOrmModule.forFeature([RefreshToken]),
     JwtModule.register({
       global: true,
       secret: jwtConstants.secret,
-      signOptions: { expiresIn: '1d'},
+      signOptions: { expiresIn: '1m'},
     }),
   ],
   controllers: [AuthController],
