@@ -1,10 +1,10 @@
+import { ResetToken } from './entities/reset-token.entity';
 import { RefreshToken } from './entities/refresh-token.entity';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import {
   Body,
   Controller,
   Get,
-  Patch,
   Post,
   Put,
   Request,
@@ -19,6 +19,7 @@ import { RegisterCompanyDto } from './dto/registerCompany.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { ChangePasswordDto } from './dto/change-password.dto';
 import { RefreshTokenDto } from './dto/refresh-tokens.dto';
+import { ResetPasswordDto } from './dto/reset-password.dto';
 
 @ApiTags('auth')
 @ApiBearerAuth()
@@ -83,5 +84,12 @@ async changePassword(@Request() req, @Body() changePasswordDto: ChangePasswordDt
 @Post('forgot-password')
 async forgotPassword(@Body() forgotPasswordDto: ForgotPasswordDto){
   return this.authService.forgotPassword(forgotPasswordDto.correo)
+}
+@Put('reset-password')
+async resetPassword(@Body() resetPasswordDto: ResetPasswordDto){
+  return this.authService.resetPassword(
+    resetPasswordDto.newPassword,
+    resetPasswordDto.resetToken,
+  );
 }
 }

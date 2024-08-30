@@ -7,12 +7,14 @@ import { jwtConstants } from './constants/jwt.constant';
 import { CompaniesModule } from 'src/companies/companies.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { RefreshToken } from './entities/refresh-token.entity';
+import { ResetToken } from './entities/reset-token.entity';
+import { MailService } from './services/mail.service';
 
 @Module({
   imports: [
     UsersModule,
     CompaniesModule,
-    TypeOrmModule.forFeature([RefreshToken]),
+    TypeOrmModule.forFeature([RefreshToken, ResetToken]),
     JwtModule.register({
       global: true,
       secret: jwtConstants.secret,
@@ -20,6 +22,6 @@ import { RefreshToken } from './entities/refresh-token.entity';
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService],
+  providers: [AuthService, MailService],
 })
 export class AuthModule {}
