@@ -1,5 +1,4 @@
 import { RefreshToken } from './entities/refresh-token.entity';
-import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import { Injectable, BadRequestException, UnauthorizedException, NotFoundException, InternalServerErrorException } from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
 import { RegisterDto } from './dto/register.dto';
@@ -14,7 +13,6 @@ import { v4 as uuidv4} from 'uuid';
 import { MoreThan, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ResetToken } from './entities/reset-token.entity';
-
 @Injectable()
 export class AuthService {
   constructor(

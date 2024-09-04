@@ -8,7 +8,6 @@ import { CompaniesModule } from 'src/companies/companies.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { RefreshToken } from './entities/refresh-token.entity';
 import { ResetToken } from './entities/reset-token.entity';
-import { MailService } from './services/mail.service';
 
 @Module({
   imports: [
@@ -22,6 +21,6 @@ import { MailService } from './services/mail.service';
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, MailService],
+  providers: [AuthService],
 })
 export class AuthModule {}

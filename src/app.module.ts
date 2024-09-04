@@ -7,7 +7,7 @@ import { TaskModule } from './task/task.module';
 import { ProductModule } from './product/product.module';
 import { ProfileModule } from './profile/profile.module';
 import { RolesModule } from './roles/roles.module';
-// import { EmailModule } from './email/email.module';
+import { EmailModule } from './email/email.module';
 
 
 @Module({
@@ -23,7 +23,6 @@ import { RolesModule } from './roles/roles.module';
       synchronize: true,
     }),
 
-
     UsersModule,
     AuthModule,
     CompaniesModule,
@@ -31,7 +30,7 @@ import { RolesModule } from './roles/roles.module';
     ProductModule,
     ProfileModule,
     RolesModule,
-    // EmailModule,
+    EmailModule,
 
   ],
   controllers: [],
