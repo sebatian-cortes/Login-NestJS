@@ -14,7 +14,6 @@ import { v4 as uuidv4} from 'uuid';
 import { MoreThan, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ResetToken } from './entities/reset-token.entity';
-import { MailService } from './services/mail.service';
 
 @Injectable()
 export class AuthService {
@@ -22,7 +21,6 @@ export class AuthService {
     private readonly usersService: UsersService,
     private readonly jwtService: JwtService,
     private readonly companiesService: CompaniesService,
-    private readonly mailService: MailService,
     @InjectRepository(RefreshToken)
     private readonly refreshTokenRepository: Repository<RefreshToken>,
     @InjectRepository(ResetToken)
@@ -175,45 +173,5 @@ export class AuthService {
     await this.usersService.saveUser(user);
     
     return { message: 'Contraseña cambiada con éxito' };
-  }
-
-  async forgotPassword(correo: string){
-    const user = await this.usersService.findOneByEmail(correo)
-
-      if (user) {
-        const expiryDate = new Date();
-        expiryDate.setHours(expiryDate.getHours() + 1);
-        
-        const resetToken = nanoid(64);  
-        await this.resetTokenRepository.create({
-          token: resetToken,
-          id_usuario: user.id_usuario,
-          expiryDate
-        });
-        this.mailService.sendPasswordResetEmail(correo, resetToken);
-         }
-      return {"mensaje": "si este usuario existe recibira un correo el"}
-  }
-
-  async resetPassword(newPassword: string, resetToken: string){
-    
-    const token = await this.refreshTokenRepository.findOne({
-      where: {
-       token: resetToken,
-       expiryDate: MoreThan( new Date()),
-     },
-     });
-
-     if (!token) {
-         throw new UnauthorizedException("invalido el link para la recuperacion de la contraseña")
-     }
-    
-    const user = await this.usersService.findOne(token.id_usuario)
-      if (!user) {
-        throw new InternalServerErrorException();
-      }
-      user.contraseña = await bcrypt.hash(newPassword, 10);
-      await this.usersService.saveUser(user);
-      
   }
 }
