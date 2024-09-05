@@ -35,10 +35,10 @@ export class AuthService {
     });
   }
 
-  async restoreUser({id}){
+  // async restoreUser({id}){
 
-   return await this.usersService.restoreUserById(id)
-  }
+  //  return await this.usersService.restoreUserById(id)
+  // }
 
   
   async login({ correo, contraseña }: LoginDto) {

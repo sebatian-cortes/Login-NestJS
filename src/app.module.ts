@@ -17,10 +17,21 @@ import { RolesModule } from './roles/roles.module';
       port: 3306,
       username: 'root',
       password: '',
-      database: 'JHASS',
+      database: 'JHASSS',
       autoLoadEntities: true,
       synchronize: true,
     }),
+
+    // TypeOrmModule.forRoot({
+    //   type: 'mysql',
+    //   host: 'databasejhass.cbs6qceyqazt.us-east-2.rds.amazonaws.com',
+    //   port: 3306,
+    //   username: 'admin',
+    //   password: 'quebendicionve777',
+    //   database: 'jhass',
+    //   autoLoadEntities: true,
+    //   synchronize: true,
+    // }),
     
     
     UsersModule,
@@ -31,6 +42,7 @@ import { RolesModule } from './roles/roles.module';
     ProfileModule,
     RolesModule,
     
+    // sequelizeModulw
   ],
   controllers: [],
   providers: [],

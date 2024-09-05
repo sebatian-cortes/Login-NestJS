@@ -27,8 +27,8 @@ export class UsersController {
     return this.usersService.findOne(id_usuario);
   }
 
-  @Patch()
-  update(@Param() id_usuario: number, @Body() updateUserDto: UpdateUserDto) {
+  @Patch(':id_usuario')
+  update(@Param(':id_usuario') id_usuario: number, @Body() updateUserDto: UpdateUserDto) {
     return this.usersService.update(+id_usuario, updateUserDto);
   }
 
@@ -37,8 +37,8 @@ export class UsersController {
     return this.usersService.remove(+id_usuario);
   }
   
-  @Patch(':id_usuario')
-  restoreUserById(@Param('id_usuario') id_usuario:number){
-     return this.usersService.restoreUserById(+id_usuario);
-  }
+//   @Patch(':correo')
+//   restoreUserById(@Param('correo') correo:string){
+//      return this.usersService.restoreUserById(+correo);
+//   }
 }

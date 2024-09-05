@@ -2,17 +2,13 @@ import {
     Column,
     DeleteDateColumn,
     Entity,
-    ManyToOne,
     OneToMany,
     PrimaryGeneratedColumn,
   } from 'typeorm';
 
-  import { User } from 'src/users/entities/user.entity'; 
 import { Profile } from 'src/profile/entities/profile.entity';
 
-
-
-@Entity('company')
+@Entity('companie')
 export class Company {
 
     @PrimaryGeneratedColumn()

@@ -37,7 +37,7 @@ export class UsersService {
     return this.userRepository.softDelete(id_usuario);
   }
 
-   restoreUserById(id_usuario: number){
-    return this.userRepository.restore(id_usuario)
-   }
+  //  restoreUserById(correo: string){
+  //   return this.userRepository.restore(correo)
+  //  }
 }

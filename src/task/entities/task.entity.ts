@@ -1,3 +1,4 @@
+import { User } from 'src/users/entities/user.entity';
 import {
     Column,
     Entity,
@@ -5,6 +6,8 @@ import {
     PrimaryGeneratedColumn,
     JoinColumn
   } from 'typeorm';
+
+  {User}
 
 @Entity('task')  
 export class Task {
@@ -20,5 +23,9 @@ export class Task {
 
     @Column()
     state: string;
+
+    @ManyToMany(() => User, (user) => user.task)
+    users: User[];
+
 
 }

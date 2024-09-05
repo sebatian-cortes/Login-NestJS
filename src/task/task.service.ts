@@ -12,8 +12,8 @@ export class TaskService {
     private taskRepository: Repository <Task>
   ){}
 
-  async create(createTaskDto: CreateTaskDto) {
-    return await this.taskRepository.save(createTaskDto);
+   create(createTaskDto: CreateTaskDto) {
+    return this.taskRepository.save(createTaskDto);
   }
 
   findAll() {
