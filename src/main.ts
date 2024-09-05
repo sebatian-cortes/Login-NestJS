@@ -3,34 +3,42 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
-
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  const cors = require('cors')
 
-
+  // Establecer prefijo global para las rutas de la API
   app.setGlobalPrefix('api/v1');
 
-  app.use(cors())
-
+  // Configurar pipes de validación globales
   app.useGlobalPipes(
     new ValidationPipe({
-      whitelist: true,
-      forbidNonWhitelisted: true,
-      transform: true,
+      whitelist: true,           // Ignora propiedades no definidas en el DTO
+      forbidNonWhitelisted: true, // Rechaza propiedades no definidas en el DTO
+      transform: true,           // Transforma la entrada a los tipos esperados
     }),
   );
 
-  const options = new DocumentBuilder()
-  .setTitle('JHASS')
-  .setDescription('Hola')
-  .setVersion('1.0')
-  .addTag('JHASS')
-  .addBearerAuth()
-  .build();
-const document = SwaggerModule.createDocument(app, options);
-SwaggerModule.setup('documentation', app, document);
+  // Configurar CORS para permitir solicitudes desde el frontend en Netlify
+  app.enableCors({
+    origin: 'https://x3z8q7v5w9-c3p9e4o6j2q1d0z0h5a6s7c8w.netlify.app', // URL del frontend en Netlify
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Métodos HTTP permitidos
+    credentials: true,  // Permitir envío de cookies y credenciales
+  });
 
+  // Configuración de Swagger para documentación de la API
+  const config = new DocumentBuilder()
+    .setTitle('JHASS')             // Título de la documentación
+    .setDescription('Hola')        // Descripción breve
+    .setVersion('1.0')             // Versión de la API
+    .addTag('JHASS')               // Etiquetas para organización en Swagger
+    .addBearerAuth()               // Añadir autenticación Bearer
+    .build();
+
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('documentation', app, document);
+
+  // Inicia la aplicación en el puerto 3000
   await app.listen(3000);
 }
+
 bootstrap();
