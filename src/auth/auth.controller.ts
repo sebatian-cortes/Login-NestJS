@@ -50,8 +50,7 @@ export class AuthController {
 
   @Post('loginCompany')
   // @UseGuards(AuthGuard)
-  @UseGuards(RolesGuard)
-  @Roles(Rank.ONE)
+ 
 
   loginCompany(
     @Request() req,
@@ -62,7 +61,8 @@ export class AuthController {
   }
 
   @Get('profile')
-  @UseGuards(AuthGuard)
+  @UseGuards(RolesGuard)
+  @Roles(Rank.ONE)
   profile(@Request() req) {
     return req.user;
   }
