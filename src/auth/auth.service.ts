@@ -7,6 +7,8 @@ import { LoginDto } from './dto/login.dto';
 import { LoginCompanyDto } from './dto/loginCompany.dto';
 import { RegisterCompanyDto } from './dto/registerCompany.dto';
 import { CompaniesService } from 'src/companies/companies.service';
+import { ProfileService } from 'src/profile/profile.service'; 
+import { RolesService } from 'src/roles/roles.service';
 
 @Injectable()
 export class AuthService {
@@ -14,6 +16,8 @@ export class AuthService {
     private readonly usersService: UsersService,
     private readonly jwtService: JwtService,
     private readonly companiesService: CompaniesService,
+    private readonly profileService: ProfileService,
+    private readonly rolesServices: RolesService,
   ) {}
 
   async register({ nombre, correo, contraseña, edad, telefono, apellido }: RegisterDto) {
@@ -80,21 +84,22 @@ export class AuthService {
     });  
   }
 
-  async loginCompany({ email, rol }: LoginCompanyDto) {
-    const company = await this.companiesService.findOneByEmail(email);
+  async loginCompany({ email,companyId, userId, roleId }: LoginCompanyDto) {
+    const companyUser = await this.companiesService.findOneByEmail(email);
+    const role = this.rolesServices.findOne(roleId)
 
     
-    if (!company) {
+    if (!companyUser) {
       throw new UnauthorizedException('El correo electrónico es incorrecto');
     }
 
-    const payload = { email: company.email, rol: rol };
+    const payload = { email: email, rol: roleId, rank: (await role).rank };
     const token = await this.jwtService.signAsync(payload);
+
+    this.profileService.create({roleId, userId, companyId})
 
     return {
       token,
-      email,
-      rol
     };
   }
 }

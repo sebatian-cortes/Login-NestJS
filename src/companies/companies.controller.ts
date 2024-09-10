@@ -22,9 +22,9 @@ export class CompaniesController {
     return this.companiesService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.companiesService.findOne(+id);
+  @Get(':id_company')
+  findOne(@Param('id_company') id_company: string) {
+    return this.companiesService.findOne(+id_company);
   }
 
   @Get(':email')
@@ -32,13 +32,13 @@ export class CompaniesController {
     return this.companiesService.findOneByEmail(email)
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCompanyDto: UpdateCompanyDto) {
-    return this.companiesService.update(+id, updateCompanyDto);
+  @Patch(':id_company')
+  update(@Param('id_company') id_company: string, @Body() updateCompanyDto: UpdateCompanyDto) {
+    return this.companiesService.update(+id_company, updateCompanyDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.companiesService.remove(+id);
+  @Delete(':id_company')
+  remove(@Param('id_company') id_company: string) {
+    return this.companiesService.remove(+id_company);
   }
 }

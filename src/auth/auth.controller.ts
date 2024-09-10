@@ -11,8 +11,12 @@ import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
 import { RegisterDto } from './dto/register.dto';
 import { AuthGuard } from './guard/auth.guard';
+import { RolesGuard } from './guard/roles.guard';
 import { LoginCompanyDto } from './dto/loginCompany.dto';
 import { RegisterCompanyDto } from './dto/registerCompany.dto';
+import { Roles } from './decorators/roles.decorator';
+import { Rank } from './enums/rol.enum';
+
 
 @Controller('auth')
 export class AuthController {
@@ -46,6 +50,9 @@ export class AuthController {
 
   @Post('loginCompany')
   // @UseGuards(AuthGuard)
+  @UseGuards(RolesGuard)
+  @Roles(Rank.ONE)
+
   loginCompany(
     @Request() req,
     @Body()

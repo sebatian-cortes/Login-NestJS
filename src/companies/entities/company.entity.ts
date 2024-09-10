@@ -7,12 +7,13 @@ import {
   } from 'typeorm';
 
 import { Profile } from 'src/profile/entities/profile.entity';
+import { Role } from 'src/roles/entities/role.entity';
 
 @Entity('companie')
 export class Company {
 
     @PrimaryGeneratedColumn()
-    id: number;
+    id_company: number;
 
     @Column()
     name: string;
@@ -38,5 +39,7 @@ export class Company {
     @OneToMany(() => Profile, profile => profile.company )
     profile: Profile[];
 
-
+    @OneToMany(() => Role, role => role.company )
+    role: Role[];
+    
 }

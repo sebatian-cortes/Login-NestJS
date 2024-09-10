@@ -5,11 +5,15 @@ import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { jwtConstants } from './constants/jwt.constant';
 import { CompaniesModule } from 'src/companies/companies.module';
+import { RolesModule } from 'src/roles/roles.module';
+import { ProfileModule } from 'src/profile/profile.module';
 
 @Module({
   imports: [
     UsersModule,
     CompaniesModule,
+    RolesModule,
+    ProfileModule,
 
     JwtModule.register({
       global: true,
