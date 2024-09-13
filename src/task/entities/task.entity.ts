@@ -18,11 +18,19 @@ export class Task {
     @Column()
     title_task: string;
 
-    @Column()
-    description: string;
 
     @Column()
-    state: string;
+    start_date: string;
+
+    @Column()
+    end_date: string;
+
+    @Column()
+    time_end: string;
+
+    @Column()
+    time_start: string;
+
 
     @ManyToMany(() => User, (user) => user.task)
     users: User[];

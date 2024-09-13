@@ -29,9 +29,9 @@ export class Role {
     deletedAt: Date;
 
     @OneToMany(() => Profile, profile => profile.role )
-  profile: Profile[];
+    profile: Profile[];
 
-  @Column({ name: 'id_company' })
+    @Column({ name: 'id_company' })
     companyId:number;
 
    @ManyToOne(() => Company, company => company.role )

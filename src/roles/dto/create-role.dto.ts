@@ -13,10 +13,10 @@ export class CreateRoleDto {
     description: string;
 
     @IsNumber()
-    @Min(0)
+    @Min(1)
     rank: number;
 
     @IsNumber()
-    @Min(0)
+    @Min(1)
     companyId: number;
 }

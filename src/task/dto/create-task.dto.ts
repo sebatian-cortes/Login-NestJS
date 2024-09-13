@@ -1,5 +1,5 @@
 import { Transform } from 'class-transformer';
-import {IsString, MinLength } from 'class-validator';
+import {isDate, IsDateString, IsOptional, IsString, MinLength } from 'class-validator';
 
 export class CreateTaskDto {
 
@@ -9,16 +9,25 @@ export class CreateTaskDto {
     title_task: string;
 
 
+    @Transform(({value}) => value.trim())
+    @IsString()
+    @MinLength(1)
+    start_date: string;
+
+    @Transform(({value}) => value.trim())
+    @IsString()
+    @MinLength(1)
+    time_start: string;
+
     
-    @Transform(({value}) => value.trim())
-    @IsString()
-    @MinLength(1)
-    description: string;
-
 
     @Transform(({value}) => value.trim())
     @IsString()
     @MinLength(1)
-    state: string;
+    end_date: string;
 
+    @Transform(({value}) => value.trim())
+    @IsString()
+    @MinLength(1)
+    time_end: string;
 }
